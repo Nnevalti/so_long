@@ -1,11 +1,12 @@
 #include "../includes/so_long.h"
+#include "../libft/libft.h"
 
 void	init_data(const char *map)
 {
 	// t_data	data;
 	int		fd;
 
-	if (ft_strcmp((map + ft_strlen(map - 4)), ".ber"))
+	if (ft_strcmp((map + (ft_strlen(map) - 4)), ".ber"))
 		printf("Error\nInvalid map format\n");
 	else if ((fd = open(map, O_RDONLY)) == -1)
 		printf("Error\nFile does not exist\n");

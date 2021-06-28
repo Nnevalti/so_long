@@ -40,11 +40,7 @@ $(LIBFT)	:
 				@make -C $(FT_DIR)
 
 $(NAME)		:	$(LIBFT) $(OBJS)
-				$(CC) $(CFLAGS) $(INC) $(FT_INC) \
-				# $(MLX_INC)
-				 $(addprefix $(SRC_DIR)/, $(SRC)) $(FT_LNK) \
-				  # $(MLX_LNK)
-				  -o $(NAME)
+				$(CC) $(CFLAGS) $(INC) $(FT_INC) $(MLX_INC) $(addprefix $(SRC_DIR)/, $(SRC)) $(FT_LNK) $(MLX_LNK) -o $(NAME)
 
 clean		:
 				@echo "\nCleaning Directories..."
