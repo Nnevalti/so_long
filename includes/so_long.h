@@ -58,13 +58,6 @@ typedef struct	s_color
 	t_bool		load;
 }				t_color;
 
-typedef struct	s_map
-{
-	int			**map;
-	int			height;
-	int			width;
-}				t_map;
-
 typedef struct	s_key
 {
 	t_bool		up;
@@ -78,7 +71,9 @@ typedef struct	s_data
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_win		win;
-	t_map		map;
+
+	char		*map_buf;
+	char		**map;
 
 	t_key		key;
 
