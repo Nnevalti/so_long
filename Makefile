@@ -12,7 +12,10 @@ INC			=	-I $(INC_DIR)
 
 # SOURCES
 SRC_DIR		=	./srcs
-SRC			=	main.c
+SRC			=	main.c \
+				get_next_line.c \
+				init.c \
+				init_map.c
 
 # OBJETS
 OBJS_NAME	=	$(SRC:.c=.o)
@@ -20,11 +23,11 @@ OBJS		=	$(addprefix $(SRC_DIR)/, $(OBJS_NAME))
 
 # MINILIBX
 # MLX_DIR		=	/usr/local/include
-# MLX_DIR		=	./minilibx_opengl
+MLX_DIR		=	./minilibx_opengl
 # MLX_LNK_DIR	=	/usr/local/lib/
-#MLX_LNK_DIR	=	 $(MLX_DIR)
-# MLX_INC		=	-I $(MLX_DIR)
-# MLX_LNK		=	-L $(MLX_LNK_DIR) -lmlx -framework OpenGL -framework AppKit
+MLX_LNK_DIR	=	 $(MLX_DIR)
+MLX_INC		=	-I $(MLX_DIR)
+MLX_LNK		=	-L $(MLX_LNK_DIR) -lmlx -framework OpenGL -framework AppKit
 
 # LIBFT LIB
 FT_DIR		=	./libft
