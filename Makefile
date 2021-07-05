@@ -15,7 +15,11 @@ SRC_DIR		=	./srcs
 SRC			=	main.c \
 				get_next_line.c \
 				init.c \
-				init_map.c
+				init_map.c \
+				init_tex.c \
+				move.c \
+				draw.c \
+				exit_game.c
 
 # OBJETS
 OBJS_NAME	=	$(SRC:.c=.o)

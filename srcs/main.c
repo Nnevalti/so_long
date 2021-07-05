@@ -9,10 +9,10 @@ int main(int ac, char const **av)
 	else
 	{
 		data = init_data(av[1]);
-		// mlx_hook(data.win_ptr, 2, 0, key_pressed, &data);
-		// mlx_hook(data.win_ptr, 3, 0, key_released, &data);
-		// mlx_hook(data.win_ptr, 17, 0, exit_game, &data);
-		// mlx_loop_hook(data.mlx_ptr, game, &data);
+		mlx_do_sync(data.mlx_ptr);
+		mlx_hook(data.win_ptr, 17, 0, exit_game, &data);
+		mlx_key_hook(data.win_ptr, update, &data);
+		mlx_loop_hook(data.mlx_ptr, draw, &data);
 		mlx_loop(data.mlx_ptr);
 	}
 	return 0;

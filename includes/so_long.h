@@ -9,63 +9,70 @@
 # define BUFFER_SIZE 512
 # define TILE_SIZE 32
 
+# define MLX_SYNC_IMAGE_WRITABLE	1
+# define MLX_SYNC_WIN_FLUSH_CMD		2
+# define MLX_SYNC_WIN_CMD_COMPLETED	3
+
 # define LEFT_KEY 0
 # define DOWN_KEY 1
 # define RIGHT_KEY 2
 # define UP_KEY 13
-# define ESCAPE 53
+
+# define ESCAPE_KEY 53
 /*
 *
 *	TEXTURES PATH
 *
 */
-// # define GRASS "./textures_xpm/grass.xpm"
-// # define ROCK "./textures_xpm/rock.xpm"
 # define GRASS "./textures_xpm/grass.xpm"
 # define ROCK "./textures_xpm/rock.xpm"
-
 /*
 *	BORDER
 */
-# define RIGHT "./textures_xpm/right_border.xpm"
-# define LEFT "./textures_xpm/left_border.xpm"
-# define TOP "./textures_xpm/top_border.xpm"
-# define BOTTOM "./textures_xpm/bottom_border.xpm"
-
+# define RIGHTB "./textures_xpm/right_border.xpm"
+# define LEFTB "./textures_xpm/left_border.xpm"
+# define TOPB "./textures_xpm/top_border.xpm"
+# define BOTTOMB "./textures_xpm/bottom_border.xpm"
 # define BOTTOMLB "./textures_xpm/bottom_left_border.xpm"
 # define BOTTOMRB "./textures_xpm/bottom_right_border.xpm"
 # define TOPLB "./textures_xpm/top_left_border.xpm"
 # define TOPRB "./textures_xpm/top_right_border.xpm"
-
 // /*
 // *	COLLECTIBLE
 // */
 # define COLLECTIBLE "./textures_xpm/collectible.xpm"
 # define COLLECTIBLE_TAKEN "./textures_xpm/collectible_taken.xpm"
-
 // /*
 // *	PLAYER SPRITE (2 FRAMES) UP, DOWN, LEFT, RIGHT
 // */
-# define PLAYER "./textures_xpm/player_u0.xpm"
+# define PLAYER_DOWN0 "./textures_xpm/player_d0.xpm"
+# define PLAYER_UP0 "./textures_xpm/player_u0.xpm"
+# define PLAYER_RIGHT0 "./textures_xpm/player_r0.xpm"
+# define PLAYER_LEFT0 "./textures_xpm/player_l0.xpm"
 
-# define EXIT_CLOSE "./textures_xpm/exit_close.xpm"
-// # define EXIT_OPEN "../textures/exit_open.png"
-//
-// # define EXIT_OPEN00 "../textures/exit_open00.png"
-// # define EXIT_OPEN01 "../textures/exit_open01.png"
-// # define EXIT_OPEN02 "../textures/exit_open02.png"
-// # define EXIT_OPEN03 "../textures/exit_open03.png"
-// # define EXIT_OPEN04 "../textures/exit_open04.png"
-// # define EXIT_OPEN05 "../textures/exit_open05.png"
-// # define EXIT_OPEN06 "../textures/exit_open06.png"
-// # define EXIT_OPEN07 "../textures/exit_open07.png"
-// # define EXIT_OPEN08 "../textures/exit_open08.png"
-// # define EXIT_OPEN09 "../textures/exit_open09.png"
-// # define EXIT_OPEN10 "../textures/exit_open10.png"
-// # define EXIT_OPEN11 "../textures/exit_open11.png"
-// # define EXIT_OPEN12 "../textures/exit_open12.png"
-// # define EXIT_OPEN13 "../textures/exit_open13.png"
-//
+# define PLAYER_DOWN1 "./textures_xpm/player_d1.xpm"
+# define PLAYER_UP1 "./textures_xpm/player_u1.xpm"
+# define PLAYER_RIGHT1 "./textures_xpm/player_r1.xpm"
+# define PLAYER_LEFT1 "./textures_xpm/player_l1.xpm"
+
+
+# define EXIT_CLOSE "./textures_xpm/exit.xpm"
+
+# define EXIT_OPEN0 "./textures_xpm/exit_open00.xpm"
+# define EXIT_OPEN1 "./textures_xpm/exit_open01.xpm"
+# define EXIT_OPEN2 "./textures_xpm/exit_open02.xpm"
+# define EXIT_OPEN3 "./textures_xpm/exit_open03.xpm"
+# define EXIT_OPEN4 "./textures_xpm/exit_open04.xpm"
+# define EXIT_OPEN5 "./textures_xpm/exit_open05.xpm"
+# define EXIT_OPEN6 "./textures_xpm/exit_open06.xpm"
+# define EXIT_OPEN7 "./textures_xpm/exit_open07.xpm"
+# define EXIT_OPEN8 "./textures_xpm/exit_open08.xpm"
+# define EXIT_OPEN9 "./textures_xpm/exit_open09.xpm"
+# define EXIT_OPEN10 "./textures_xpm/exit_open10.xpm"
+# define EXIT_OPEN11 "./textures_xpm/exit_open11.xpm"
+# define EXIT_OPEN12 "./textures_xpm/exit_open12.xpm"
+# define EXIT_OPEN13 "./textures_xpm/exit_open13.xpm"
+
 
 typedef enum	e_bool
 {
@@ -73,13 +80,17 @@ typedef enum	e_bool
 	false
 }				t_bool;
 
-// typedef enum	e_dir
-// {
-// 	north,
-// 	south,
-// 	east,
-// 	west
-// }				t_dir;
+typedef enum	e_error
+{
+	INVALID_MAP_FORMAT,
+	INVALID_MAP_FILE,
+	INVALID_MAP,
+	MLX_ERROR,
+	PLAYER_DOUBLE_INITIALIZED,
+	PLAYER_UNINITIALIZED,
+	NO_COLLECTIBLES
+}				t_error;
+
 
 typedef struct	s_pos
 {
@@ -87,18 +98,19 @@ typedef struct	s_pos
 	int		y;
 }				t_pos;
 
+typedef enum	e_dir
+{
+	UP,
+	DOWN,
+	RIGHT,
+	LEFT
+}				t_dir;
+
 typedef struct	s_win
 {
 	int			height;
 	int			width;
 }				t_win;
-
-// typedef struct	s_player
-// {
-// 	t_pos		pos;
-// 	t_dir		dir;
-// 	double		move_speed;
-// }				t_player;
 
 typedef struct	s_tex
 {
@@ -112,30 +124,30 @@ typedef struct	s_tex
 	// t_bool	load;
 }				t_tex;
 
-// typedef struct	s_color
-// {
-// 	int			r;
-// 	int			g;
-// 	int			b;
-// 	t_bool		load;
-// }				t_color;
-
-// typedef struct	s_key
-// {
-// 	t_bool		up;
-// 	t_bool		down;
-// 	t_bool		left;
-// 	t_bool		right;
-// }				t_key;
-// player d0  top right borderå
+typedef struct	s_player
+{
+	t_pos		pos;
+	t_dir		dir;
+	t_tex		sprite_down[2];
+	t_tex		sprite_up[2];
+	t_tex		sprite_right[2];
+	t_tex		sprite_left[2];
+	int			frame;
+}				t_player;
 
 typedef struct	s_map
 {
+	int			fd;
 	char		*buff;
 	char		**map;
 	unsigned int height;
 	unsigned int width;
 }				t_map;
+
+typedef struct	s_gametime
+{
+
+}				t_gametime;
 
 typedef struct	s_data
 {
@@ -144,11 +156,10 @@ typedef struct	s_data
 	t_win		win;
 	t_tex		display;
 	t_map		map;
+	t_player	player;
+	t_bool		player_load;
 
 	// t_key		key;
-	//
-	// t_player	player;
-	//
 
 	t_tex		grass;
 	t_tex		rock;
@@ -166,16 +177,26 @@ typedef struct	s_data
 	t_tex		collectible;
 	t_tex		collectible_taken;
 
-	t_tex		player;
 	t_tex		exit_close;
+	t_tex		exit_open[14];
 
-	// t_bool		success;
-	// t_bool		gameover;
-	// unsigned int	nb_moves;
+	unsigned int	nb_moves;
+	unsigned int	nb_collectibles;
+	unsigned int	nb_collectibles_taken;
+	int				door_frame;
 }				t_data;
 
 int		get_next_line(int fd, char **line);
 t_data	init_data(const char *map);
-void	init_map(int fd, t_data *data);
+void	init_map(t_data *data, char const *map);
+void	init_sprites_and_tiles(t_data *data);
+
+int		update(int key, t_data *data);
+
+int		draw(t_data *data);
+
+void	handle_error(t_data *data, int error);
+int		exit_game(t_data *data);
+
 
 #endif
