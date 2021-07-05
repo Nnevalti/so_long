@@ -105,11 +105,46 @@ void	init_player(t_data *data, unsigned int y, unsigned int x)
 	data->player.pos.x = x;
 }
 
+void	check_border(t_data *data)
+{
+	unsigned int		y;
+	unsigned int		x;
+
+	y = 0;
+	x = 0;
+	while (y < data->map.height)
+	{
+		if (data->map.map[y][x] != '1')
+			handle_error(data, INVALID_MAP);
+		y++;
+	}
+	y--;
+	while (x < data->map.width)
+	{
+		if (data->map.map[y][x] != '1')
+			handle_error(data, INVALID_MAP);
+		x++;
+	}
+	x--;
+	while (y > 0)
+	{
+		if (data->map.map[y][x] != '1')
+			handle_error(data, INVALID_MAP);
+		y--;
+	}
+	while (x > 0)
+	{
+		if (data->map.map[y][x] != '1')
+			handle_error(data, INVALID_MAP);
+		x--;
+	}
+}
 void	check_map_validity(t_data *data)
 {
 	unsigned int		y;
 	unsigned int		x;
 
+	check_border(data);
 	y = 0;
 	while (y < data->map.height)
 	{

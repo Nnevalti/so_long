@@ -3,6 +3,7 @@
 int		exit_game(t_data *data)
 {
 	(void)data;
+	// system("leaks so_long");
 	exit(0);
 }
 
