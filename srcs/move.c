@@ -1,68 +1,68 @@
 #include "../includes/so_long.h"
 
-void	up(t_data *data)
+void	up(t_data *d)
 {
-	if (data->map.map[data->player.pos.y - 1][data->player.pos.x] != '1')
+	if (d->map.map[d->player.pos.y - 1][d->player.pos.x] != '1')
 	{
-		data->player.pos.y--;
-		data->nb_moves++;
+		d->player.pos.y--;
+		d->nb_moves++;
 	}
-	data->player.dir = UP;
+	d->player.dir = UP;
 }
 
-void	down(t_data *data)
+void	down(t_data *d)
 {
-	if (data->map.map[data->player.pos.y + 1][data->player.pos.x] != '1')
+	if (d->map.map[d->player.pos.y + 1][d->player.pos.x] != '1')
 	{
-		data->player.pos.y++;
-		data->nb_moves++;
+		d->player.pos.y++;
+		d->nb_moves++;
 	}
-	data->player.dir = DOWN;
+	d->player.dir = DOWN;
 }
 
-void	right(t_data *data)
+void	right(t_data *d)
 {
-	if (data->map.map[data->player.pos.y][data->player.pos.x + 1] != '1')
+	if (d->map.map[d->player.pos.y][d->player.pos.x + 1] != '1')
 	{
-		data->player.pos.x++;
-		data->nb_moves++;
+		d->player.pos.x++;
+		d->nb_moves++;
 	}
-	data->player.dir = RIGHT;
+	d->player.dir = RIGHT;
 }
 
-void	left(t_data *data)
+void	left(t_data *d)
 {
-	if (data->map.map[data->player.pos.y][data->player.pos.x - 1] != '1')
+	if (d->map.map[d->player.pos.y][d->player.pos.x - 1] != '1')
 	{
-		data->player.pos.x--;
-		data->nb_moves++;
+		d->player.pos.x--;
+		d->nb_moves++;
 	}
-	data->player.dir = LEFT;
+	d->player.dir = LEFT;
 }
 
-int	update(int key, t_data *data)
+int	update(int key, t_data *d)
 {
 	if (key == ESCAPE_KEY)
-		exit_game(data);
+		exit_game(d);
 	else if (key == UP_KEY)
-		up(data);
+		up(d);
 	else if (key == DOWN_KEY)
-		down(data);
+		down(d);
 	else if (key == RIGHT_KEY)
-		right(data);
+		right(d);
 	else if (key == LEFT_KEY)
-		left(data);
-	printf("nb_moves = %d\n", data->nb_moves);
-	if (data->map.map[data->player.pos.y][data->player.pos.x] == 'C')
+		left(d);
+	printf("nb_moves = %d\n", d->nb_moves);
+	if (d->map.map[d->player.pos.y][d->player.pos.x] == 'C')
 	{
-		data->map.map[data->player.pos.y][data->player.pos.x] = 'T';
-		data->nb_collectibles_taken++;
+		d->map.map[d->player.pos.y][d->player.pos.x] = 'T';
+		d->nb_collectibles_taken++;
 	}
-	if (data->map.map[data->player.pos.y][data->player.pos.x] == 'E'
-		&& data->nb_collectibles_taken == data->nb_collectibles)
+	if (d->map.map[d->player.pos.y][d->player.pos.x] == 'E'
+		&& d->nb_collectibles_taken == d->nb_collectibles)
 	{
 		printf("WIN\n");
-		exit_game(data);
+		exit_game(d);
 	}
 	return (1);
 }

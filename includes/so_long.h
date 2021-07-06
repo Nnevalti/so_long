@@ -150,10 +150,13 @@ typedef struct s_data
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
+	t_bool			win_load;
 	t_win			win;
 	t_tex			display;
+	t_bool			display_load;
 
 	t_map			map;
+	t_bool			map_load;
 	t_player		player;
 	t_bool			player_load;
 	t_bool			exit_load;
@@ -181,32 +184,32 @@ typedef struct s_data
 
 int		get_next_line(int fd, char **line);
 t_data	init_data(const char *map);
-void	init_map(t_data *data, char const *map);
+void	init_map(t_data *d, char const *map);
 void	check_map_file(t_data *d, const char *map);
 void	create_map(t_data *d);
 void	malloc_map(t_data *d);
 void	fill_map(t_data *d);
-void	check_map_validity(t_data *data);
-void	init_player(t_data *data, unsigned int y, unsigned int x);
-void	init_sprites_and_tiles(t_data *data);
+void	check_map_validity(t_data *d);
+void	init_player(t_data *d, unsigned int y, unsigned int x);
+void	init_sprites_and_tiles(t_data *d);
 
-int		update(int key, t_data *data);
+int		update(int key, t_data *d);
 
-int		draw(t_data *data);
-void	draw_tile(t_data *data, t_tex *tex, int y, int x, int yb, int xb);
-void	draw_sprite(t_data *data, t_tex *tex, int y, int x, int yb, int xb);
+int		draw(t_data *d);
+void	draw_tile(t_data *d, t_tex *tex, int y, int x, int yb, int xb);
+void	draw_sprite(t_data *d, t_tex *tex, int y, int x, int yb, int xb);
 
 
-void	handle_error(t_data *data, int error);
+void	handle_error(t_data *d, int error);
 void	free_map(char **map);
-void	free_tex(t_data *data);
-int		exit_game(t_data *data);
+void	free_tex(t_data *d);
+int		exit_game(t_data *d);
 
 
 /*
 * BONUS FUNCTIONS
 */
-void	handle_frame(t_data *data);
-void	display_nb_move(t_data *data);
+void	handle_frame(t_data *d);
+void	display_nb_move(t_data *d);
 
 #endif

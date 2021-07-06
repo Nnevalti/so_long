@@ -86,4 +86,5 @@ void	fill_map(t_data *d)
 		y++;
 	}
 	free(d->map.buff);
+	d->map_load = true;
 }

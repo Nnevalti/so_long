@@ -6,19 +6,13 @@ void	init_tex(t_data *d, t_tex *tex, char *path)
 			&tex->width, &tex->height);
 	if (!tex->img)
 	{
-		free_map(d->map.map);
-		free_tex(d);
 		printf("%s\n", path);
 		handle_error(d, TEX_PATH_WRONG);
 	}
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp,
 			&tex->s_line, &tex->endian);
 	if (!tex->addr)
-	{
-		free_map(d->map.map);
-		free_tex(d);
 		handle_error(d, MLX_ERROR);
-	}
 	tex->load = true;
 }
 

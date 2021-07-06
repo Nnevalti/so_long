@@ -3,10 +3,7 @@
 void	init_player(t_data *d, unsigned int y, unsigned int x)
 {
 	if (d->player_load == true)
-	{
-		free_map(d->map.map);
 		handle_error(d, PLAYER_DOUBLE_INITIALIZED);
-	}
 	d->player.pos.y = y;
 	d->player.pos.x = x;
 	d->player_load = true;
