@@ -1,4 +1,5 @@
 NAME		=	so_long
+BONUS		=	so_long_bonus
 
 # COMPILER
 CC			=	gcc
@@ -16,14 +17,34 @@ SRC			=	main.c \
 				get_next_line.c \
 				init.c \
 				init_map.c \
+				init_map2.c \
+				check_map.c \
 				init_tex.c \
 				move.c \
 				draw.c \
+				draw2.c \
+				free.c \
 				exit_game.c
 
+SRC_BONUS	=	main.c \
+				get_next_line.c \
+				init_bonus.c \
+				init_map.c \
+				init_map2.c \
+				check_map.c \
+				init_tex.c \
+				move.c \
+				draw_bonus.c \
+				draw2.c \
+				free.c \
+				exit_game.c \
+				bonus.c
 # OBJETS
 OBJS_NAME	=	$(SRC:.c=.o)
 OBJS		=	$(addprefix $(SRC_DIR)/, $(OBJS_NAME))
+
+OBJS_NAME_BONUS	=	$(SRC_BONUS:.c=.o)
+OBJS_BONUS		=	$(addprefix $(SRC_DIR)/, $(OBJS_NAME_BONUS))
 
 # MINILIBX
 # MLX_DIR		=	/usr/local/include
@@ -49,14 +70,18 @@ $(LIBFT)	:
 $(NAME)		:	$(LIBFT) $(OBJS)
 				$(CC) $(CFLAGS) $(INC) $(FT_INC) $(MLX_INC) $(addprefix $(SRC_DIR)/, $(SRC)) $(FT_LNK) $(MLX_LNK) -o $(NAME)
 
+bonus		:	$(LIBFT) $(OBJS_BONUS)
+				$(CC) $(CFLAGS) $(INC) $(FT_INC) $(MLX_INC) $(addprefix $(SRC_DIR)/, $(SRC_BONUS)) $(FT_LNK) $(MLX_LNK) -o $(BONUS)
+
 clean		:
 				@echo "\nCleaning Directories..."
 				@rm -rf $(OBJS)
-				@rm -rf $(OBJS_BNS)
+				@rm -rf $(OBJS_BONUS)
 				make clean -C $(FT_DIR)
 
 fclean		:	clean
 				rm -f $(NAME)
+				rm -f $(BONUS)
 				make fclean -C $(FT_DIR)
 
 re			:	fclean all

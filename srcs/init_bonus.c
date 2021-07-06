@@ -26,16 +26,15 @@ t_data	init_data(const char *map)
 	t_data	d;
 
 	d.player_load = false;
-	d.exit_load = false;
 	d.nb_moves = 0;
 	d.nb_collectibles = 0;
 	d.nb_collectibles_taken = 0;
 	d.player.dir = DOWN;
-	d.door_frame = 13;
+	d.door_frame = 0;
 	d.player.frame = 0;
 	init_map(&d, map);
 	init_mlx(&d);
-	init_display(&d);
 	init_sprites_and_tiles(&d);
+	init_display(&d);
 	return (d);
 }

@@ -40,7 +40,7 @@ void	left(t_data *data)
 	data->player.dir = LEFT;
 }
 
-int		update(int key, t_data *data)
+int	update(int key, t_data *data)
 {
 	if (key == ESCAPE_KEY)
 		exit_game(data);
@@ -64,6 +64,5 @@ int		update(int key, t_data *data)
 		printf("WIN\n");
 		exit_game(data);
 	}
-
 	return (1);
 }

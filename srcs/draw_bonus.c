@@ -123,6 +123,8 @@ int	draw(t_data *d)
 		y++;
 	}
 	draw_player(d);
+	display_nb_move(d);
+	handle_frame(d);
 	mlx_do_sync(d->mlx_ptr);
 	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr,
 		d->display.img, 0, 0);

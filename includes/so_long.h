@@ -7,7 +7,7 @@
 # include "mlx.h"
 
 # define BUFFER_SIZE 512
-# define TILE_SIZE 32
+# define TILE_SIZE 128
 
 # define MLX_SYNC_IMAGE_WRITABLE	1
 # define MLX_SYNC_WIN_FLUSH_CMD		2
@@ -45,16 +45,17 @@
 // /*
 // *	PLAYER SPRITE (2 FRAMES) UP, DOWN, LEFT, RIGHT
 // */
-# define PLAYER_DOWN0 "./textures_xpm/player_d0.xpm"
 # define PLAYER_UP0 "./textures_xpm/player_u0.xpm"
-# define PLAYER_RIGHT0 "./textures_xpm/player_r0.xpm"
-# define PLAYER_LEFT0 "./textures_xpm/player_l0.xpm"
-
-# define PLAYER_DOWN1 "./textures_xpm/player_d1.xpm"
 # define PLAYER_UP1 "./textures_xpm/player_u1.xpm"
-# define PLAYER_RIGHT1 "./textures_xpm/player_r1.xpm"
-# define PLAYER_LEFT1 "./textures_xpm/player_l1.xpm"
 
+# define PLAYER_DOWN0 "./textures_xpm/player_d0.xpm"
+# define PLAYER_DOWN1 "./textures_xpm/player_d1.xpm"
+
+# define PLAYER_RIGHT0 "./textures_xpm/player_r0.xpm"
+# define PLAYER_RIGHT1 "./textures_xpm/player_r1.xpm"
+
+# define PLAYER_LEFT0 "./textures_xpm/player_l0.xpm"
+# define PLAYER_LEFT1 "./textures_xpm/player_l1.xpm"
 
 # define EXIT_CLOSE "./textures_xpm/exit.xpm"
 
@@ -73,32 +74,33 @@
 # define EXIT_OPEN12 "./textures_xpm/exit_open12.xpm"
 # define EXIT_OPEN13 "./textures_xpm/exit_open13.xpm"
 
-
-typedef enum	e_bool
+typedef enum e_bool
 {
 	true,
 	false
 }				t_bool;
 
-typedef enum	e_error
+typedef enum e_error
 {
 	INVALID_MAP_FORMAT,
 	INVALID_MAP_FILE,
 	INVALID_MAP,
+	MALLOC_FAIL,
 	MLX_ERROR,
+	TEX_PATH_WRONG,
 	PLAYER_DOUBLE_INITIALIZED,
 	PLAYER_UNINITIALIZED,
+	NO_EXIT,
 	NO_COLLECTIBLES
 }				t_error;
 
-
-typedef struct	s_pos
+typedef struct s_pos
 {
 	int		x;
 	int		y;
 }				t_pos;
 
-typedef enum	e_dir
+typedef enum e_dir
 {
 	UP,
 	DOWN,
@@ -106,13 +108,13 @@ typedef enum	e_dir
 	LEFT
 }				t_dir;
 
-typedef struct	s_win
+typedef struct s_win
 {
 	int			height;
 	int			width;
 }				t_win;
 
-typedef struct	s_tex
+typedef struct s_tex
 {
 	void	*img;
 	char	*addr;
@@ -121,10 +123,10 @@ typedef struct	s_tex
 	int		width;
 	int		endian;
 	int		s_line;
-	// t_bool	load;
+	t_bool	load;
 }				t_tex;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	t_pos		pos;
 	t_dir		dir;
@@ -135,68 +137,76 @@ typedef struct	s_player
 	int			frame;
 }				t_player;
 
-typedef struct	s_map
+typedef struct s_map
 {
-	int			fd;
-	char		*buff;
-	char		**map;
-	unsigned int height;
-	unsigned int width;
-}				t_map;
+	int				fd;
+	char			*buff;
+	char			**map;
+	unsigned int	height;
+	unsigned int	width;
+}					t_map;
 
-typedef struct	s_gametime
+typedef struct s_data
 {
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_win			win;
+	t_tex			display;
 
-}				t_gametime;
+	t_map			map;
+	t_player		player;
+	t_bool			player_load;
+	t_bool			exit_load;
 
-typedef struct	s_data
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_win		win;
-	t_tex		display;
-	t_map		map;
-	t_player	player;
-	t_bool		player_load;
-
-	// t_key		key;
-
-	t_tex		grass;
-	t_tex		rock;
-
-	t_tex		right;
-	t_tex		left;
-	t_tex		top;
-	t_tex		bottom;
-
-	t_tex		toplb;
-	t_tex		toprb;
-	t_tex		bottomlb;
-	t_tex		bottomrb;
-
-	t_tex		collectible;
-	t_tex		collectible_taken;
-
-	t_tex		exit_close;
-	t_tex		exit_open[14];
+	t_tex			grass;
+	t_tex			rock;
+	t_tex			right;
+	t_tex			left;
+	t_tex			top;
+	t_tex			bottom;
+	t_tex			toplb;
+	t_tex			toprb;
+	t_tex			bottomlb;
+	t_tex			bottomrb;
+	t_tex			collectible;
+	t_tex			collectible_taken;
+	t_tex			exit_close;
+	t_tex			exit_open[14];
 
 	unsigned int	nb_moves;
 	unsigned int	nb_collectibles;
 	unsigned int	nb_collectibles_taken;
 	int				door_frame;
-}				t_data;
+}					t_data;
 
 int		get_next_line(int fd, char **line);
 t_data	init_data(const char *map);
 void	init_map(t_data *data, char const *map);
+void	check_map_file(t_data *d, const char *map);
+void	create_map(t_data *d);
+void	malloc_map(t_data *d);
+void	fill_map(t_data *d);
+void	check_map_validity(t_data *data);
+void	init_player(t_data *data, unsigned int y, unsigned int x);
 void	init_sprites_and_tiles(t_data *data);
 
 int		update(int key, t_data *data);
 
 int		draw(t_data *data);
+void	draw_tile(t_data *data, t_tex *tex, int y, int x, int yb, int xb);
+void	draw_sprite(t_data *data, t_tex *tex, int y, int x, int yb, int xb);
+
 
 void	handle_error(t_data *data, int error);
+void	free_map(char **map);
+void	free_tex(t_data *data);
 int		exit_game(t_data *data);
 
+
+/*
+* BONUS FUNCTIONS
+*/
+void	handle_frame(t_data *data);
+void	display_nb_move(t_data *data);
 
 #endif

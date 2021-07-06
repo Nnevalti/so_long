@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-int		ft_return(char **str, char **line)
+int	ft_return(char **str, char **line)
 {
 	int		i;
 	char	*tmp;
@@ -20,12 +20,13 @@ int		ft_return(char **str, char **line)
 	return (1);
 }
 
-int		readline(int fd, char **str, char **buff)
+int	readline(int fd, char **str, char **buff)
 {
 	int		res;
 	char	*tmp;
 
-	while ((res = read(fd, *buff, BUFFER_SIZE)) > 0)
+	res = read(fd, *buff, BUFFER_SIZE);
+	while (res > 0)
 	{
 		(*buff)[res] = '\0';
 		if (!*str || !**str)
@@ -42,18 +43,20 @@ int		readline(int fd, char **str, char **buff)
 		}
 		if (ft_strchr(*str, '\n'))
 			break ;
+		res = read(fd, *buff, BUFFER_SIZE);
 	}
 	free(*buff);
 	return (res);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	int				res;
 	static char		*str;
 	char			*buff;
 
-	if (!(buff = (char *)malloc(BUFFER_SIZE + 1 * sizeof(char))))
+	buff = (char *)malloc(BUFFER_SIZE + 1 * sizeof(char));
+	if (!buff)
 		return (-1);
 	if (fd < 0 || !line || read(fd, buff, 0) < 0 || BUFFER_SIZE < 1)
 		return (-1);
