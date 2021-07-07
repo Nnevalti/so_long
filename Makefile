@@ -6,6 +6,7 @@ CC			=	gcc
 
 # FLAGS
 CFLAGS		=	-Wall -Werror -Wextra
+#-g3 -fsanitize=address
 
 # HEADER
 INC_DIR		=	./include

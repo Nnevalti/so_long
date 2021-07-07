@@ -19,6 +19,7 @@ void	display_nb_move(t_data *d)
 {
 	int		y;
 	int		x;
+	char	*n;
 
 	y = 0;
 	while (y < 20)
@@ -26,16 +27,17 @@ void	display_nb_move(t_data *d)
 		x = 0;
 		while (x < 20)
 		{
-			d->display.addr[x * (d->display.bpp >> 3)
-				+ y * d->display.s_line] = 0x000000 & 0xFF;
-			d->display.addr[x * (d->display.bpp >> 3)
-				+ y * d->display.s_line + 1] = (0x000000 >> 8) & 0xFF;
-			d->display.addr[x * (d->display.bpp >> 3)
-				+ y * d->display.s_line + 2] = (0x000000 >> 16) & 0xFF;
+			d->display.addr[(x * d->display.bpp >> 3)
+				+ (y * d->display.s_line)] = 0x000000 & 0xFF;
+			d->display.addr[(x * d->display.bpp >> 3)
+				+ 1 + (y * d->display.s_line)] = (0x000000 >> 8) & 0xFF;
+			d->display.addr[(x * d->display.bpp >> 3)
+				+ 2 + (y * d->display.s_line)] = (0x000000 >> 16) & 0xFF;
 			x++;
 		}
 		y++;
 	}
-	mlx_string_put(d->mlx_ptr, d->win_ptr, 7, 10, 0xFFFFFF,
-		ft_itoa(d->nb_moves));
+	n = ft_itoa(d->nb_moves);
+	mlx_string_put(d->mlx_ptr, d->win_ptr, 7, 10, 0xFFFFFF, n);
+	free(n);
 }

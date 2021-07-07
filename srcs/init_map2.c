@@ -9,6 +9,17 @@ void	check_map_file(t_data *d, const char *map)
 		handle_error(d, INVALID_MAP_FILE);
 }
 
+void	check_map_is_square(t_data *d, char *line)
+{
+	if (ft_strlen(line) != d->map.width)
+	{
+		free(line);
+		free(d->map.buff);
+		close(d->map.fd);
+		handle_error(d, INVALID_MAP);
+	}
+}
+
 void	create_map(t_data *d)
 {
 	char	*line;
@@ -21,13 +32,7 @@ void	create_map(t_data *d)
 	free(line);
 	while (get_next_line(d->map.fd, &line))
 	{
-		if (ft_strlen(line) != d->map.width)
-		{
-			free(line);
-			free(d->map.buff);
-			close(d->map.fd);
-			handle_error(d, INVALID_MAP);
-		}
+		check_map_is_square(d, line);
 		tmp = ft_strjoin(d->map.buff, "\n");
 		free(d->map.buff);
 		d->map.buff = ft_strjoin(tmp, line);

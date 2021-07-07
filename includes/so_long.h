@@ -7,7 +7,7 @@
 # include "mlx.h"
 
 # define BUFFER_SIZE 512
-# define TILE_SIZE 128
+# define TILE_SIZE 64
 
 # define MLX_SYNC_IMAGE_WRITABLE	1
 # define MLX_SYNC_WIN_FLUSH_CMD		2
@@ -146,6 +146,14 @@ typedef struct s_map
 	unsigned int	width;
 }					t_map;
 
+typedef struct s_draw
+{
+	unsigned int	y_t;
+	unsigned int	x_t;
+	unsigned int	y_s;
+	unsigned int	x_s;
+}				t_draw;
+
 typedef struct s_data
 {
 	void			*mlx_ptr;
@@ -154,7 +162,7 @@ typedef struct s_data
 	t_win			win;
 	t_tex			display;
 	t_bool			display_load;
-
+	t_draw			draw;
 	t_map			map;
 	t_bool			map_load;
 	t_player		player;
@@ -196,15 +204,14 @@ void	init_sprites_and_tiles(t_data *d);
 int		update(int key, t_data *d);
 
 int		draw(t_data *d);
-void	draw_tile(t_data *d, t_tex *tex, int y, int x, int yb, int xb);
-void	draw_sprite(t_data *d, t_tex *tex, int y, int x, int yb, int xb);
-
+void	draw_tile(t_data *d, t_tex *tex);
+void	draw_sprite(t_data *d, t_tex *tex);
+void	draw_player_sprite(t_data *d, t_tex *tex);
 
 void	handle_error(t_data *d, int error);
 void	free_map(char **map);
 void	free_tex(t_data *d);
 int		exit_game(t_data *d);
-
 
 /*
 * BONUS FUNCTIONS
