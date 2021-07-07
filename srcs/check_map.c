@@ -36,7 +36,7 @@ void	check_right_left_border(t_data *d)
 	while (y < d->map.height)
 	{
 		if (d->map.map[y][0] != '1'
-		|| d->map.map[0][d->map.width - 1] != '1')
+		|| d->map.map[y][d->map.width - 1] != '1')
 			handle_error(d, INVALID_MAP);
 		y++;
 	}
