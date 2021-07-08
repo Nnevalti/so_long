@@ -9,6 +9,7 @@ int	exit_game(t_data *d)
 		mlx_destroy_image(d->mlx_ptr, d->display.img);
 	if (d->win_load == true)
 		mlx_destroy_window(d->mlx_ptr, d->win_ptr);
+	system("leaks so_long_bonus");
 	exit(0);
 }
 

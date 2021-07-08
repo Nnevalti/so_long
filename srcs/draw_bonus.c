@@ -93,6 +93,8 @@ void	draw_player(t_data *d)
 
 int	draw(t_data *d)
 {
+	char	*n;
+
 	d->draw.y_t = 0;
 	while (d->draw.y_t < d->map.height)
 	{
@@ -107,7 +109,9 @@ int	draw(t_data *d)
 		d->draw.y_t++;
 	}
 	draw_player(d);
-	display_nb_move(d);
+	n = ft_itoa(d->nb_moves);
+	mlx_string_put(d->mlx_ptr, d->win_ptr, 7, 10, 0xFFFFFF, n);
+	free(n);
 	handle_frame(d);
 	mlx_do_sync(d->mlx_ptr);
 	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr,

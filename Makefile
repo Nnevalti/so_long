@@ -86,3 +86,35 @@ fclean		:	clean
 				make fclean -C $(FT_DIR)
 
 re			:	fclean all
+
+run			:
+				make \
+				&& make clean \
+				&& ./so_long map/map.ber
+norm		:
+				norminette srcs includes
+test		:
+				make \
+				&& make clean \
+				&& ./so_long map/invalid_map_border.ber \
+				&& ./so_long map/invalid_map_border2.ber \
+				&& ./so_long map/invalid_map_border3.ber \
+				&& ./so_long map/invalid_map_border4.ber \
+				&& ./so_long map/invalid_map_border5.ber \
+				&& ./so_long map/invalid_map_collectible.ber \
+				&& ./so_long map/invalid_map_exit.ber \
+				&& ./so_long map/invalid_map_player.ber \
+				&& ./so_long map/invalid_map_player2.ber
+
+test_bonus	:
+				make bonus \
+				&& make clean \
+				&& ./so_long_bonus map/invalid_map_border.ber \
+				&& ./so_long_bonus map/invalid_map_border2.ber \
+				&& ./so_long_bonus map/invalid_map_border3.ber \
+				&& ./so_long_bonus map/invalid_map_border4.ber \
+				&& ./so_long_bonus map/invalid_map_border5.ber \
+				&& ./so_long_bonus map/invalid_map_collectible.ber \
+				&& ./so_long_bonus map/invalid_map_exit.ber \
+				&& ./so_long_bonus map/invalid_map_player.ber \
+				&& ./so_long_bonus map/invalid_map_player2.ber
