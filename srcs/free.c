@@ -39,6 +39,7 @@ void	free_tex_border(t_data *d)
 
 void	free_tex_player(t_data *d)
 {
+
 	if (d->player.sprite_down[0].load == true)
 		mlx_destroy_image(d->mlx_ptr, d->player.sprite_down[0].img);
 	if (d->player.sprite_down[1].load == true)
@@ -57,44 +58,23 @@ void	free_tex_player(t_data *d)
 		mlx_destroy_image(d->mlx_ptr, d->player.sprite_right[1].img);
 }
 
-void	free_tex_exit(t_data *d)
+void free_exit_tex(t_data *d)
 {
 	if (d->exit_close.load == true)
 		mlx_destroy_image(d->mlx_ptr, d->exit_close.img);
-	if (d->exit_open[0].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[0].img);
-	if (d->exit_open[1].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[1].img);
-	if (d->exit_open[2].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[2].img);
-	if (d->exit_open[3].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[3].img);
-	if (d->exit_open[4].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[4].img);
-	if (d->exit_open[5].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[5].img);
-	if (d->exit_open[6].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[6].img);
-	if (d->exit_open[7].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[7].img);
-	if (d->exit_open[8].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[8].img);
-	if (d->exit_open[9].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[9].img);
-	if (d->exit_open[10].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[10].img);
+	while (i != 13)
+	{
+		if (d->exit_open[i].load == true)
+			mlx_destroy_image(d->mlx_ptr, d->exit_open[i].img);
+		i++;
+	}
 }
-
 void	free_tex(t_data *d)
 {
+	unsigned int i = 0;
+
 	free_tex_border(d);
-	free_tex_exit(d);
-	if (d->exit_open[11].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[11].img);
-	if (d->exit_open[12].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[12].img);
-	if (d->exit_open[13].load == true)
-		mlx_destroy_image(d->mlx_ptr, d->exit_open[13].img);
+	free_exit_tex(d);
 	free_tex_player(d);
 	if (d->collectible.load == true)
 		mlx_destroy_image(d->mlx_ptr, d->collectible.img);
