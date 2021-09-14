@@ -60,6 +60,7 @@ void	free_tex_player(t_data *d)
 
 void free_exit_tex(t_data *d)
 {
+	int i = 0;
 	if (d->exit_close.load == true)
 		mlx_destroy_image(d->mlx_ptr, d->exit_close.img);
 	while (i != 13)
@@ -71,8 +72,6 @@ void free_exit_tex(t_data *d)
 }
 void	free_tex(t_data *d)
 {
-	unsigned int i = 0;
-
 	free_tex_border(d);
 	free_exit_tex(d);
 	free_tex_player(d);
