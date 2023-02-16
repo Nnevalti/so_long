@@ -67,6 +67,7 @@ all			:	 $(NAME)
 $(LIBFT)	:
 				@echo "\nCompiling $(FT_DIR)..."
 				@make -C $(FT_DIR)
+				@make -C $(MLX_DIR)
 
 $(NAME)		:	$(LIBFT) $(OBJS)
 				$(CC) $(CFLAGS) $(INC) $(FT_INC) $(MLX_INC) $(addprefix $(SRC_DIR)/, $(SRC)) $(FT_LNK) $(MLX_LNK) -o $(NAME)
