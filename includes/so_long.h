@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include "../libft/libft.h"
-# include "mlx.h"
+# include "../minilibx_opengl/mlx.h"
 
 # define BUFFER_SIZE 512
 # define TILE_SIZE 64

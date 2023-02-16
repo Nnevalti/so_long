@@ -10,7 +10,7 @@ CFLAGS		=	-Wall -Werror -Wextra
 
 # HEADER
 INC_DIR		=	./include
-INC			=	-I $(INC_DIR)
+INC			=	-I $(INC_DIR) -I minilibx_opengl
 
 # SOURCES
 SRC_DIR		=	./srcs
@@ -79,6 +79,7 @@ clean		:
 				@rm -rf $(OBJS)
 				@rm -rf $(OBJS_BONUS)
 				make clean -C $(FT_DIR)
+				make clean -C $(MLX_DIR)
 
 fclean		:	clean
 				rm -f $(NAME)
